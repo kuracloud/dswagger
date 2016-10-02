@@ -1,0 +1,3269 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "In order to authenticate with this API, an Instance Administrator with access\nto your Instance will need to use the Instance Administration interface to create\nan Authentication Token.\n\nAccess to the API needs to be enabled by kuraCloud staff for each separate Instance.  \n\nIf you are interested in using this API please contact your Salesperson. \n",
+        "version": "2.0.0",
+	"title": "kuraCloud Admin API v2 (Test Cloud)",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "email": "noreply@kuracloud.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "host": "test-api.kuracloud.com",
+    "basePath": "/v2",
+    "tags": [
+        {
+            "name": "Instance Settings",
+            "description": ""
+        },
+        {
+            "name": "Courses",
+            "description": ""
+        },
+        {
+            "name": "Administrators",
+            "description": ""
+        },
+        {
+            "name": "Student Accounts",
+            "description": ""
+        },
+        {
+            "name": "Staff Accounts",
+            "description": ""
+        },
+        {
+            "name": "Content",
+            "description": ""
+        },
+        {
+            "name": "Student Work",
+            "description": ""
+        },
+        {
+            "name": "Logging",
+            "description": ""
+        }
+    ],
+    "schemes": [
+        "https"
+    ],
+    "paths": {
+        "/instance": {
+            "get": {
+                "tags": [
+                    "Instance Settings"
+                ],
+                "summary": "Get general settings",
+                "description": "Returns the details of your instance.",
+                "operationId": "getGeneralSettings",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/settingsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Instance Settings"
+                ],
+                "summary": "Edit general settings",
+                "description": "Edits the general settings of your instance. \n\nKey for sidebar colours in the User Interface: \n  \n| DEFAULT | COLOUR1 | COLOUR2 | COLOUR3 | COLOUR4 | COLOUR5 | COLOUR6 | COLOUR7 | COLOUR8 |\n|----------|----------|----------|----------|----------|----------|----------|----------|----------|\n| Default   | Kura   | Kiwi  | Cadet  | Tomato  | Charcoal  | Snow   | Banana   | Deep Sea  |\n",
+                "operationId": "",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "settings object",
+                        "description": "Settings object to be applied to your instance",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/settingsInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/settingsOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course": {
+            "post": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Create course",
+                "description": "Creates a new course.\n\nThe lmsEnabled field may only be changed if LMS Integration has been enabled for your instance.\n\nNote that lmsCourseName is a hidden field that is not available in the standard kuraCloud user interface. You may set this field, however it is currently used only as a placeholder.\n",
+                "operationId": "createCourse",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "course object",
+                        "description": "course details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/courseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/courseOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "List Courses",
+                "description": "Returns an array of courses.  Deleted courses will not be returned.",
+                "operationId": "listCourses",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/courseOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}": {
+            "get": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Get course",
+                "description": "Returns information for an existing course.",
+                "operationId": "getCourse",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/courseOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Edit course",
+                "description": "Edits details of an existing course.     \n\nThe lmsEnabled field may only be changed if LMS Integration has been enabled for your instance.\n\nlmsCourseName is a hidden field that is not available in the standard kuraCloud user interface. You may set this field, however it is currently used only as a placeholder.\n",
+                "operationId": "editCourse",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "settings object",
+                        "description": "Settings object to be applied to your instance",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/courseInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/courseOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Courses"
+                ],
+                "summary": "Delete course",
+                "description": "Deletes an existing course.",
+                "operationId": "deleteCourse",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/admin": {
+            "post": {
+                "tags": [
+                    "Administrators"
+                ],
+                "summary": "Invite admin",
+                "description": "Invites an admin user.\n\nKey for instanceAdmin field: \n\n| true | false |\n|----------|----------|\n| Instance admin   | Course admin   |\n",
+                "operationId": "inviteAdmin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "admin user object",
+                        "description": "admin user details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/adminUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/adminUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Administrators"
+                ],
+                "summary": "List admins",
+                "description": "Returns an array of active course or instance admins.  Deleted admins will not be returned.",
+                "operationId": "listAdmins",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/adminUserOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/admin/{adminId}": {
+            "get": {
+                "tags": [
+                    "Administrators"
+                ],
+                "summary": "Get admin",
+                "description": "Returns information for an existing admin user.",
+                "operationId": "getAdmin",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "adminId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing admin user. adminId may be obtained by calling the List admins method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/adminUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Administrators"
+                ],
+                "summary": "Edit admin",
+                "description": "Edits details of an existing admin user.",
+                "operationId": "editAdmin",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "adminId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing admin user. adminId may be obtained by calling the List admins method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "admin user object",
+                        "description": "admin user details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/editAdminUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/adminUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Administrators"
+                ],
+                "summary": "Delete admin",
+                "description": "Revokes privileges of a course or instance admin.\n\nYou cannot delete an active (i.e. inviteComplete = true) Instance Admin if they are the last remaining one in the Instance.  If you attempt to do so, the API will return a 403 error.\n",
+                "operationId": "deleteAdmin",
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "adminId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing admin user. adminId may be obtained by calling the List admins method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Invite students",
+                "description": "Invites students to an existing course.\n\nUsers of this method may also invite a single student by passing an individual studentUserInput object instead of an array.\n",
+                "operationId": "inviteStudents",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "student user array",
+                        "description": "student user details",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentUserInput"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentUserOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "List students",
+                "description": "Returns an array of active and pending students in a course.  Deleted students will not be returned.",
+                "operationId": "listStudents",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "deleted",
+                        "in": "query",
+                        "description": "Used to select the status of students that will be returned:\n\n| true | false |\n|----------|----------|\n|deleted   | active and pending   |\n\nIf this field is omitted then a default of false is assumed.\n",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentUserOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/{studentId}/reinvite": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Re-invite student",
+                "description": "Re-sends a pending invite to a student. Students with pending invites can be identified via the inviteComplete field when calling the List students method.",
+                "operationId": "reinviteStudent",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "studentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing student. studentId may be obtained by calling the List students method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/reinvite": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Re-invite pending students",
+                "description": "Re-sends invites to all students with pending status. Students with pending invites can be identified via the inviteComplete field when calling the List students method.",
+                "operationId": "reinviteStudents",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/{studentId}": {
+            "get": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Get student",
+                "description": "Returns information for an existing student.",
+                "operationId": "getStudent",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "studentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing student. studentId may be obtained by calling the List students method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/studentUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Edit student",
+                "description": "Edits details of an existing student.",
+                "operationId": "editStudent",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "studentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing student. studentId may be obtained by calling the List students method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "student user object",
+                        "description": "student user details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/editStudentUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/studentUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Delete student",
+                "description": "Deletes a student from an existing course.",
+                "operationId": "deleteStudent",
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "studentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing student. studentId may be obtained by calling the List students method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/delete": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Delete students",
+                "description": "Deletes multiple students from an existing course.",
+                "operationId": "deleteStudents",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "student user array",
+                        "description": "Multiple studentId fields passed as JSON objects",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentIdObject"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/edit": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Edit students",
+                "description": "Edits details of multiple existing students.",
+                "operationId": "editStudents",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "student user array",
+                        "description": "student user details",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentUserInput"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentUserOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/student/restore": {
+            "post": {
+                "tags": [
+                    "Student Accounts"
+                ],
+                "summary": "Restore students",
+                "description": "Restores multiple deleted student within an existing course.",
+                "operationId": "restoreStudents",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "student user array",
+                        "description": "Multiple studentId fields passed as JSON objects",
+                        "required": true,
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/studentIdObject"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/staff": {
+            "post": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "Invite staff",
+                "description": "Invites a staff member to an existing course.",
+                "operationId": "inviteStaff",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "staff user object",
+                        "description": "staff user details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/staffUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/staffUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "get": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "List staff",
+                "description": "Returns an array of active and pending staff members in a course.  Deleted staff members will not be returned.",
+                "operationId": "listStaff",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/staffUserOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/staff/{staffId}/reinvite": {
+            "post": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "Re-invite staff",
+                "description": "Re-sends a pending invite to a staff member.",
+                "operationId": "reinviteStaff",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "staffId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing staff member. staffId may be obtained by calling the List Staff method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/staff/{staffId}": {
+            "get": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "Get staff",
+                "description": "Returns information for an existing staff member.",
+                "operationId": "getStaff",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "staffId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing staff member. staffId may be obtained by calling the List Staff method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/staffUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "put": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "Edit staff",
+                "description": "Edits details of an existing staff member.",
+                "operationId": "editStaff",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "staffId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing staff member. staffId may be obtained by calling the List Staff method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "admin user object",
+                        "description": "admin user details",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/editStaffUserInput"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/staffUserOutput"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Staff Accounts"
+                ],
+                "summary": "Delete staff",
+                "description": "Deletes a staff member from an existing course.",
+                "operationId": "deleteStaff",
+                "produces": [
+                    "form-data"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "staffId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing staff member . staffId may be obtained by calling the List Staff method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published": {
+            "get": {
+                "tags": [
+                    "Content"
+                ],
+                "summary": "List published content",
+                "description": "Returns an array of published modules and lessons in an existing course.",
+                "operationId": "listPublishedContent",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/contentOutput"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportanswers": {
+            "post": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student lesson answers",
+                "description": "Begins the export of student answers for an existing published lesson. Makes a .csv file available for download. Progress of this export may be polled using Export student lesson answers - progress. \n\nIf this lesson is contained within a module you must instead call the Export student module answers method.\n",
+                "operationId": "exportStudentLessonAnswers",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/taskToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportanswers/{taskToken}": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student lesson answers - progress",
+                "description": "Returns progress on exporting student answers for a published lesson. When complete the file may be downloaded using Export student lesson answers - download file.\n\nIf this lesson is contained within a module you must instead call the Export student module answers - progress method.\n",
+                "operationId": "exportStudentLessonAnswersProgress",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export student lesson answers method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportanswers/{taskToken}/download": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student lesson answers - download file",
+                "description": "Requests the download of an exported .csv file containing student answers for a published lesson. This file is produced by calling Export student lesson answers. \n\nIf this lesson is contained within a module you must instead call the Export student module answers - download file method..\n",
+                "operationId": "exportStudentLessonAnswersDownloadFile",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "text/csv; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export student lesson answers method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportanswers": {
+            "post": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student module answers",
+                "description": "Begins the export of student answers for an existing published lesson within a module. Makes a .csv file available for download. Progress of this export may be polled using Export student module answers - progress. ",
+                "operationId": "exportStudentModuleAnswers",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a module will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/taskToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportanswers/{taskToken}": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student module answers - progress",
+                "description": "Returns progress on exporting student answers for a published lesson within a module. When complete the file may be downloaded using Export student module answers - download file.",
+                "operationId": "exportStudentModuleAnswersProgress",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a module will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export student module answers method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportanswers/{taskToken}/download": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export student module answers - download file",
+                "description": "Requests the download of an exported .csv file containing student answers for a published lesson within a module. This file is produced by calling Export student module answers. ",
+                "operationId": "exportStudentModuleAnswersDownloadFile",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "text/csv; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a module will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export student module answers method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportgrades.{gradeFormat}": {
+            "post": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export lesson grading",
+                "description": "Begins the export of student grades for an existing published lesson. Makes a .csv or .json file available for download. Progress of this export may be polled using Export lesson grading - progress. \n\nIf this lesson is contained within a module you must instead call the Export module grading method.\n",
+                "operationId": "exportLessonGrading",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \n\nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/taskToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportgrades.{gradeFormat}/{taskToken}": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export lesson grading - progress",
+                "description": "Returns progress on exporting the student grades for a published lesson.\n\nIf this lesson is contained within a module you must instead call the\nExport module grading - progress method.\n",
+                "operationId": "exportLessonGradingProgress",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export lesson grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/exportgrades.{gradeFormat}/{taskToken}/download": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export lesson grading - download file",
+                "description": "Requests the download of an exported .csv file containing student grades for a published lesson. This file is produced by calling Export lesson grading. \n\nIf this lesson is contained within a module you must instead call the Export module grading - download file method.\n",
+                "operationId": "exportLessonGradingDownloadFile",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "text/csv; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export lesson grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportgrades.{gradeFormat}": {
+            "post": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export module grading",
+                "description": "Begins the export of student grades for an existing published lesson within a module. Makes a .csv or .json file available for download. Progress of this export may be polled using Export module grading - progress.",
+                "operationId": "exportModuleGrading",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a module will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/taskToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportgrades.{gradeFormat}/{taskToken}": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export module grading - progress",
+                "description": "Returns progress on exporting student grades for a published lesson within a module. When complete the file may be downloaded using Export module grading - download file.",
+                "operationId": "exportModuleGradingProgress",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export module grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/{contentId}/{moduleLessonId}/exportgrades.{gradeFormat}/{taskToken}/download": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export module grading - download file",
+                "description": "Requests the download of an exported .csv file containing student grades for a published lesson within a module. This file is produced by calling Export module grading.",
+                "operationId": "exportModuleGradingDownloadFile",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "text/csv; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "contentId",
+                        "in": "path",
+                        "description": "Course-specific identifier of an existing lesson or module.  In this context a lesson will be referenced. contentId may be obtained by calling the List published content method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "moduleLessonId",
+                        "in": "path",
+                        "description": "Course-specific identifier of a lesson within a module. contentId may be obtained by calling the List published content method and referencing lessonId.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| csv   | \n| json   |\n \nThe file format you select must remain consistent when requesting an export, checking the export progress and requesting the exported file\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "csv",
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export module grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success"
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/exportgrades.{gradeFormat}": {
+            "post": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export course grading",
+                "description": "Begins the export of student grades for all published content within a course. Makes a .json file available for download. Progress of this export may be polled using Export course grading - progress. \n",
+                "operationId": "exportCourseGrading",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| json   |\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ]
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/taskToken"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/exportgrades.{gradeFormat}/{taskToken}": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export course grading - progress",
+                "description": "Returns progress on exporting student grades for all published content within a course. When complete the file may be downloaded using Export course grading - download file.\n",
+                "operationId": "exportCourseGradingProgress",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| json   |\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export course grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/course/{courseId}/published/exportgrades.{gradeFormat}/{taskToken}/download": {
+            "get": {
+                "tags": [
+                    "Student Work"
+                ],
+                "summary": "Export course grading - download file",
+                "description": "Requests the download of an exported .json file containing student grades for all published content within a course. This file is produced by calling Export course grading.\n",
+                "operationId": "exportCourseGradingDownloadFile",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json; charset=utf-8"
+                ],
+                "parameters": [
+                    {
+                        "name": "courseId",
+                        "in": "path",
+                        "description": "Instance-unique identifier of an existing course. courseId may be obtained by calling the List courses method.",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "gradeFormat",
+                        "in": "path",
+                        "description": "Specifies format of the requested exportgrades file.  \n\n| Accepted values | \n|----------|\n| json   |\n",
+                        "required": true,
+                        "type": "string",
+                        "enum": [
+                            "json"
+                        ]
+                    },
+                    {
+                        "name": "taskToken",
+                        "in": "path",
+                        "description": "Unique identifier assigned to a task. taskToken may be obtained by calling the Export course grading method.",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/progress"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        },
+        "/logs": {
+            "get": {
+                "tags": [
+                    "Logging"
+                ],
+                "summary": "Get logs",
+                "description": "Returns an array of server requests within a specified timeframe.",
+                "operationId": "getLogs",
+                "consumes": [
+                    ""
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "since",
+                        "in": "query",
+                        "description": "Time and date for the beginning of required log period.  Must be provided in epoch format.  If omitted then a default of 1 day ago is assumed.",
+                        "required": false,
+                        "type": "integer"
+                    },
+                    {
+                        "name": "until",
+                        "in": "query",
+                        "description": "Time and date for the beginning of required log period.  Must be provided in epoch format.  If omitted then a default of 1 day ago is assumed.",
+                        "required": false,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/logs"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "403": {
+                        "description": "Forbidden"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "500": {
+                        "description": "Server Error"
+                    },
+                    "503": {
+                        "description": "Unavailable"
+                    }
+                },
+                "security": [
+                    {
+                        "X-Kura-Token": []
+                    }
+                ]
+            }
+        }
+    },
+    "securityDefinitions": {
+        "X-Kura-Token": {
+            "type": "apiKey",
+            "name": "X-Kura-Token",
+            "in": "header"
+        }
+    },
+    "definitions": {
+        "settingsInput": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "gradingMode": {
+                    "type": "string",
+                    "enum": [
+                        "kuraGrading",
+                        "pdfGrading"
+                    ]
+                },
+                "sidebarColour": {
+                    "type": "string",
+                    "enum": [
+                        "DEFAULT",
+                        "COLOUR1",
+                        "COLOUR2",
+                        "COLOUR3",
+                        "COLOUR4",
+                        "COLOUR5",
+                        "COLOUR6",
+                        "COLOUR7",
+                        "COLOUR8"
+                    ]
+                }
+            }
+        },
+        "settingsOutput": {
+            "type": "object",
+            "required": [
+                "displayName",
+                "gradingMode",
+                "sidebarColour",
+                "instanceId",
+                "lmsEnabled"
+            ],
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "gradingMode": {
+                    "type": "string"
+                },
+                "sidebarColour": {
+                    "type": "string"
+                },
+                "instanceId": {
+                    "type": "string"
+                },
+                "lmsEnabled": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "courseInput": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "courseCode": {
+                    "type": "string"
+                },
+                "lmsEnabled": {
+                    "type": "boolean"
+                },
+                "lmsCourseName": {
+                    "type": "string"
+                }
+            }
+        },
+        "courseOutput": {
+            "type": "object",
+            "required": [
+                "courseId",
+                "name",
+                "courseCode",
+                "lmsEnabled",
+                "lmsCourseName"
+            ],
+            "properties": {
+                "courseId": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "courseCode": {
+                    "type": "string"
+                },
+                "lmsEnabled": {
+                    "type": "boolean"
+                },
+                "lmsCourseName": {
+                    "type": "string"
+                }
+            }
+        },
+        "adminUserInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "instanceAdmin"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "instanceAdmin": {
+                    "type": "boolean"
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                }
+            }
+        },
+        "adminUserOutput": {
+            "type": "object",
+            "required": [
+                "adminId",
+                "email",
+                "givenName",
+                "familyName",
+                "inviteComplete",
+                "createdDate",
+                "instanceAdmin"
+            ],
+            "properties": {
+                "adminId": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "inviteComplete": {
+                    "type": "boolean"
+                },
+                "createdDate": {
+                    "type": "integer"
+                },
+                "instanceAdmin": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "editAdminUserInput": {
+            "type": "object",
+            "properties": {
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                }
+            }
+        },
+        "studentUserInput": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "externalStudentId": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "string"
+                }
+            }
+        },
+        "studentUserOutput": {
+            "type": "object",
+            "required": [
+                "studentId",
+                "email",
+                "givenName",
+                "familyName",
+                "inviteComplete",
+                "createdDate",
+                "externalStudentId",
+                "section"
+            ],
+            "properties": {
+                "studentId": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "inviteComplete": {
+                    "type": "boolean"
+                },
+                "createdDate": {
+                    "type": "integer"
+                },
+                "externalStudentId": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "string"
+                }
+            }
+        },
+        "editStudentUserInput": {
+            "type": "object",
+            "properties": {
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "externalStudentId": {
+                    "type": "string"
+                },
+                "section": {
+                    "type": "string"
+                }
+            }
+        },
+        "studentIdObject": {
+            "type": "object",
+            "required": [
+                "studentId"
+            ],
+            "properties": {
+                "studentId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "staffUserInput": {
+            "type": "object",
+            "required": [
+                "email",
+                "role"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "author",
+                        "grader"
+                    ]
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                }
+            }
+        },
+        "staffUserOutput": {
+            "type": "object",
+            "required": [
+                "staffId",
+                "email",
+                "givenName",
+                "familyName",
+                "inviteComplete",
+                "createdDate",
+                "role"
+            ],
+            "properties": {
+                "staffId": {
+                    "type": "integer"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "inviteComplete": {
+                    "type": "boolean"
+                },
+                "createdDate": {
+                    "type": "integer"
+                },
+                "role": {
+                    "type": "string"
+                }
+            }
+        },
+        "editStaffUserInput": {
+            "type": "object",
+            "properties": {
+                "givenName": {
+                    "type": "string"
+                },
+                "familyName": {
+                    "type": "string"
+                },
+                "role": {
+                    "type": "string",
+                    "enum": [
+                        "author",
+                        "grader"
+                    ]
+                }
+            }
+        },
+        "contentOutput": {
+            "type": "object",
+            "required": [
+                "contentId",
+                "publishedDate",
+                "contentType",
+                "updateAvailable",
+                "orderInCourse",
+                "title",
+                "description",
+                "groupLesson",
+                "committable",
+                "keywords"
+            ],
+            "properties": {
+                "contentId": {
+                    "type": "integer"
+                },
+                "publishedDate": {
+                    "type": "integer"
+                },
+                "contentType": {
+                    "type": "string"
+                },
+                "updateAvailable": {
+                    "type": "boolean"
+                },
+                "orderInCourse": {
+                    "type": "integer"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "groupLesson": {
+                    "type": "boolean"
+                },
+                "committable": {
+                    "type": "boolean"
+                },
+                "keywords": {
+                    "type": "string"
+                }
+            }
+        },
+        "taskToken": {
+            "type": "object",
+            "required": [
+                "taskToken"
+            ],
+            "properties": {
+                "taskToken": {
+                    "type": "string"
+                }
+            }
+        },
+        "progress": {
+            "type": "object",
+            "required": [
+                "status"
+            ],
+            "properties": {
+                "status": {
+                    "type": "string"
+                }
+            }
+        },
+        "logs": {
+            "type": "object",
+            "required": [
+                "timestamp",
+                "request",
+                "method",
+                "useragent"
+            ],
+            "properties": {
+                "timestamp": {
+                    "type": "integer"
+                },
+                "request": {
+                    "type": "string"
+                },
+                "method": {
+                    "type": "string"
+                },
+                "payload": {
+                    "type": "string"
+                },
+                "useragent": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about kuraCloud",
+        "url": "https://kuracloud.com/index.html"
+    }
+}

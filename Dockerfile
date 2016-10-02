@@ -8,9 +8,9 @@ RUN apt-get update \
 RUN mkdir /swaggertmp \
  && cd /swaggertmp \
  && git clone https://github.com/swagger-api/swagger-ui.git \
- && cp -r swagger-ui/dist/* /usr/share/nginx/
+ && cp -r swagger-ui/dist/* /usr/share/nginx/html/
 
-RUN mv /usr/share/nginx/index.html /usr/share/nginx/swagger.html
+RUN mv /usr/share/nginx/html/index.html /usr/share/nginx/html/swagger.html
 
-COPY ["./html","/usr/share/nginx"]
+COPY ["./swaggerfiles","/usr/share/nginx/html/"]
 
