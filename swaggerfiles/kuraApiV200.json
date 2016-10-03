@@ -2784,7 +2784,7 @@
                     {
                         "name": "until",
                         "in": "query",
-                        "description": "Time and date for the beginning of required log period.  Must be provided in epoch format.  If omitted then a default of 1 day ago is assumed.",
+                        "description": "Time and date for the end of required log period. Must be provided in epoch format. If omitted then a default of the current time/date is assumed.",
                         "required": false,
                         "type": "integer"
                     }
