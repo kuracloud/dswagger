@@ -2,6 +2,7 @@
 
 function drunner_setup()
 addconfig("PORT","The port to run Swagger on","80","port",true,true)
+addconfig("RUNNING","Is the service running","false","bool",true,false)
 end
 
 -- everything past here are functions that can be run from the commandline,
