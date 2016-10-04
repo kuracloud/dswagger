@@ -7,6 +7,7 @@ end
 
 -- everything past here are functions that can be run from the commandline,
 -- e.g. minimalexample help
+containername = "drunner-${SERVICENAME}-dswagger"
 
 function start()
    print(dsub("Launching Swagger on port ${PORT}"))
