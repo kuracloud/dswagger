@@ -1,4 +1,5 @@
 FROM nginx
+MAINTAINER drunner
 
 RUN apt-get update \
  && apt-get upgrade -y \
@@ -14,3 +15,9 @@ RUN mv /usr/share/nginx/html/index.html /usr/share/nginx/html/swagger.html
 
 COPY ["./swaggerfiles","/usr/share/nginx/html/"]
 
+# add in the assets.
+COPY ["./drunner","/drunner"]
+RUN chmod a-w -R /drunner
+
+# lock in druser.
+USER swagger
