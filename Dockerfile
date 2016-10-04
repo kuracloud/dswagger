@@ -15,9 +15,12 @@ RUN mv /usr/share/nginx/html/index.html /usr/share/nginx/html/swagger.html
 
 COPY ["./swaggerfiles","/usr/share/nginx/html/"]
 
-# add in the assets.
-COPY ["./drunner","/drunner"]
-RUN chmod a-w -R /drunner
+RUN groupadd -g 22021 drgroup
+RUN adduser --disabled-password --gecos '' -u 22021 --gid 22021 druser
 
-# lock in druser.
-USER swagger
+# create /drunner and allow druser write access.
+RUN mkdir /drunner && chown druser:drgroup /drunner
+
+# add in the assets.
+USER druser
+ADD ["./drunner","/drunner"]
