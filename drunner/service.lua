@@ -2,7 +2,6 @@
 
 function drunner_setup()
 addconfig("PORT","The port to run Swagger on","80","port",true,true)
-addconfig("RUNNING","Is the service running","false","bool",true,false)
 end
 
 -- everything past here are functions that can be run from the commandline,
@@ -11,8 +10,6 @@ containername = "drunner-${SERVICENAME}-dswagger"
 
 function start()
    print(dsub("Launching Swagger on port ${PORT}"))
-
-   dconfig_set("RUNNING","true")
 
    if (drunning(containername)) then
       print("Swagger is already running.")
@@ -31,7 +28,6 @@ function start()
 end
 
 function stop()
-  dconfig_set("RUNNING","false")
   dstop(containername)
 end
 
