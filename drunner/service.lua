@@ -16,7 +16,7 @@ function start()
    else
       result=drun("docker", "run", "-d",
       "-p", "${PORT}:80",
-      "-p", "${PORT}:80/udp",
+--      "-p", "${PORT}:80/udp",
       "--restart=always",
       "--name", containername,
       "${IMAGENAME}")

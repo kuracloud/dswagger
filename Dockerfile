@@ -3,7 +3,7 @@ MAINTAINER drunner
 
 RUN apt-get update \
  && apt-get upgrade -y \
- && apt-get install -y wget git sudo \
+ && apt-get install -y git sudo \
  && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /swaggertmp \
@@ -22,9 +22,11 @@ RUN adduser --disabled-password --gecos '' -u 22511 --gid 22511 druser
 RUN mkdir /drunner && chown druser:drgroup /drunner
 
 # allow sudo to use nginx.
-RUN echo "druser ALL= (ALL) NOPASSWD: /etc/nginx/" > /etc/sudoers.d/druser
+RUN echo "druser ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/druser
 RUN chmod 0440 /etc/sudoers.d/druser
 
 # add in the assets.
 USER druser
 ADD ["./drunner","/drunner"]
+
+CMD ["sudo", "nginx", "-g", "daemon off;"]
