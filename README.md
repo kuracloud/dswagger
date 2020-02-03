@@ -1,3 +1,5 @@
+# DEPRECATED AND MAY BE DELETED AFTER FEBRUARY 2020
+
 # dswagger
 This is a dService that performs the following:
   - Installs Swagger in Nginx
